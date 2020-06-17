@@ -17,6 +17,9 @@ module.exports = {
   plugins: ['react', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
+    'react/prefer-stateless-function': 'off',
+    'arrow-parens': ["error", "as-needed"],
+    'react/static-property-placement': 'off',
     'react/jsx-filename-extension': [
       'warn',
       {

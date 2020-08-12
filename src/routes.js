@@ -17,6 +17,7 @@ function Routes() {
             backgroundColor: '#f4511e',
           },
           headerTintColor: '#fff',
+          headerTitleAlign: 'center',
           headerTitleStyle: {
             alignSelf: 'center',
           },
@@ -24,10 +25,14 @@ function Routes() {
         <Stack.Screen
           name="Main"
           component={Main}
-          options={{title: 'Usuaŕios'}}
+          options={{title: 'Usuários'}}
         />
 
-        <Stack.Screen name="User" component={User} />
+        <Stack.Screen
+          name="User"
+          component={User}
+          options={({route}) => ({title: route.params.user.name})}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

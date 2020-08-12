@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {FlatList} from 'react-native';
+import {FlatList, ActivityIndicator} from 'react-native';
 
 export const Container = styled.View`
   flex: 1;
@@ -37,8 +37,13 @@ export const Bio = styled.Text`
   text-align: center;
 `;
 
+export const Loading = styled(ActivityIndicator).attrs({
+  size: 20,
+  color: '#f4511e',
+})``;
+
 export const Stars = styled(FlatList).attrs({
-  showsVerticalScrollIndicator: false,
+  showsVerticalScrollIndicator: true,
 })`
   margin-top: 25px;
 `;
@@ -50,6 +55,7 @@ export const Starred = styled.View`
   margin-bottom: 20px;
   flex-direction: row;
   align-items: center;
+  margin-right: 4px;
 `;
 
 export const OwnerAvatar = styled.Image`

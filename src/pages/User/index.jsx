@@ -15,6 +15,7 @@ import {
   Info,
   Title,
   Author,
+  Loading,
 } from './styles';
 
 class User extends Component {
@@ -22,20 +23,49 @@ class User extends Component {
     super(props);
     this.state = {
       stars: [],
+      loading: true,
+      page: 1,
     };
   }
 
   async componentDidMount() {
+    const {stars, page} = this.state;
     const {route} = this.props;
     const {user} = route.params;
 
-    const response = await api.get(`/users/${user.login}/starred`);
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: {
+        page,
+        loading: false,
+      },
+    });
 
-    this.setState({stars: response.data});
+    this.setState({
+      stars: [...stars, ...response.data],
+      loading: false,
+    });
   }
 
+  handleLoad = async () => {
+    const {stars, page} = this.state;
+    const {route} = this.props;
+    const {user} = route.params;
+
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: {
+        page: page + 1,
+      },
+    });
+
+    this.setState({
+      stars: [...stars, ...response.data],
+      page,
+      loading: false,
+    });
+  };
+
   render() {
-    const {stars} = this.state;
+    const {stars, loading} = this.state;
     const {route} = this.props;
 
     const {user} = route.params;
@@ -48,19 +78,26 @@ class User extends Component {
           <Bio>{user.bio}</Bio>
         </Header>
 
-        <Stars
-          data={stars}
-          keyExtractor={star => String(star.id)}
-          renderItem={({item}) => (
-            <Starred>
-              <OwnerAvatar source={{uri: item.owner.avatar_url}} />
-              <Info>
-                <Title>{item.name}</Title>
-                <Author>{item.owner.login}</Author>
-              </Info>
-            </Starred>
-          )}
-        />
+        {loading ? (
+          <Loading />
+        ) : (
+          <Stars
+            data={stars}
+            onEndReachedThreshold={0.2}
+            onEndReached={this.handleLoad}
+            ListFooterComponent={<Loading />}
+            keyExtractor={star => String(star.id)}
+            renderItem={({item}) => (
+              <Starred>
+                <OwnerAvatar source={{uri: item.owner.avatar_url}} />
+                <Info>
+                  <Title>{item.name}</Title>
+                  <Author>{item.owner.login}</Author>
+                </Info>
+              </Starred>
+            )}
+          />
+        )}
       </Container>
     );
   }

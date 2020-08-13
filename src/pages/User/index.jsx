@@ -91,9 +91,7 @@ class User extends Component {
             data={stars}
             onEndReachedThreshold={0.2}
             onEndReached={this.handleLoad}
-            // ListFooterComponent={
-            //   <ActivityIndicator size={20} color="#f4511e" />
-            // }
+            ListFooterComponent={<Loading />}
             keyExtractor={star => String(star.id)}
             renderItem={({item}) => (
               <Starred onPress={() => this.handleNavigate(item)}>

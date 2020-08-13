@@ -36,8 +36,6 @@ class Main extends Component {
   async componentDidMount() {
     const users = await AsyncStorage.getItem('@repositories');
 
-    console.tron.log(users);
-
     if (users) {
       this.setState({users: JSON.parse(users)});
     }
@@ -97,14 +95,15 @@ class Main extends Component {
   };
 
   handleDelete = item => {
-    // const {users} = this.state;
-    // const afterDel = users.filter(u => u !== item);
+    const {users} = this.state;
+    const afterDel = users.filter(u => u !== item);
+    console.tron.log(item);
 
     console.tron.log(item);
 
-    // this.setState({
-    //   users: afterDel,
-    // });
+    this.setState({
+      users: afterDel,
+    });
   };
 
   handleNavigate = user => {
@@ -147,7 +146,7 @@ class Main extends Component {
               <Top>
                 <Icon name="delete" size={30} color="rgba(32, 201, 151, 0.0)" />
                 <Avatar source={{uri: item.avatar}} />
-                <DeleteIcon onPres={() => this.handleDelete(item)}>
+                <DeleteIcon onPress={() => this.handleDelete(item)}>
                   <Icon name="delete" size={20} color="#ff3333" />
                 </DeleteIcon>
               </Top>

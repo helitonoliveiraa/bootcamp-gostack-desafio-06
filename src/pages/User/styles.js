@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import {FlatList, ActivityIndicator} from 'react-native';
+import {FlatList} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -37,18 +38,13 @@ export const Bio = styled.Text`
   text-align: center;
 `;
 
-export const Loading = styled(ActivityIndicator).attrs({
-  size: 20,
-  color: '#f4511e',
-})``;
-
 export const Stars = styled(FlatList).attrs({
   showsVerticalScrollIndicator: true,
 })`
   margin-top: 25px;
 `;
 
-export const Starred = styled.View`
+export const Starred = styled(RectButton)`
   background: #f5f5f5;
   border-radius: 4px;
   padding: 10px 15px;

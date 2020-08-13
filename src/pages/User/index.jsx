@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+import Loading from '../../components/index';
 import api from '../../services/api';
 
 import {
@@ -15,7 +16,6 @@ import {
   Info,
   Title,
   Author,
-  Loading,
 } from './styles';
 
 class User extends Component {
@@ -64,6 +64,12 @@ class User extends Component {
     });
   };
 
+  handleNavigate = repository => {
+    const {navigation} = this.props;
+
+    navigation.navigate('Repository', {repository});
+  };
+
   render() {
     const {stars, loading} = this.state;
     const {route} = this.props;
@@ -85,10 +91,12 @@ class User extends Component {
             data={stars}
             onEndReachedThreshold={0.2}
             onEndReached={this.handleLoad}
-            ListFooterComponent={<Loading />}
+            // ListFooterComponent={
+            //   <ActivityIndicator size={20} color="#f4511e" />
+            // }
             keyExtractor={star => String(star.id)}
             renderItem={({item}) => (
-              <Starred>
+              <Starred onPress={() => this.handleNavigate(item)}>
                 <OwnerAvatar source={{uri: item.owner.avatar_url}} />
                 <Info>
                   <Title>{item.name}</Title>
@@ -106,6 +114,9 @@ class User extends Component {
 User.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape().isRequired,
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
   }).isRequired,
 };
 

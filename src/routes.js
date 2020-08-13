@@ -15,7 +15,7 @@ function Routes() {
         screenOptions={{
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: '#f4511e',
+            backgroundColor: '#20c997',
           },
           headerTintColor: '#fff',
           headerTitleAlign: 'center',

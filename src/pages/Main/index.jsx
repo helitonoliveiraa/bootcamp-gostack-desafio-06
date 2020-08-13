@@ -18,6 +18,8 @@ import {
   Bio,
   ProfileButton,
   ProfileButtonText,
+  DeleteIcon,
+  Top,
 } from './styles';
 
 class Main extends Component {
@@ -27,18 +29,21 @@ class Main extends Component {
       newUser: '',
       users: [],
       loading: false,
+      hasError: false,
     };
   }
 
   async componentDidMount() {
     const users = await AsyncStorage.getItem('@repositories');
 
+    console.tron.log(users);
+
     if (users) {
       this.setState({users: JSON.parse(users)});
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     const {users} = this.state;
 
     if (prevState.users !== users) {
@@ -48,8 +53,29 @@ class Main extends Component {
 
   handleAddUser = async () => {
     const {newUser, users} = this.state;
-
     this.setState({loading: true});
+
+    const userExists = users.find(u => u.login === newUser);
+
+    if (userExists) {
+      this.setState({
+        hasError: true,
+        newUser: '',
+      });
+
+      setTimeout(() => {
+        this.setState({
+          hasError: false,
+          loading: false,
+        });
+      }, 2000);
+
+      return;
+    }
+
+    if (newUser !== '') {
+      this.setState({hasError: false});
+    }
 
     const response = await api.get(`/users/${newUser}`);
 
@@ -70,6 +96,17 @@ class Main extends Component {
     Keyboard.dismiss();
   };
 
+  handleDelete = item => {
+    // const {users} = this.state;
+    // const afterDel = users.filter(u => u !== item);
+
+    console.tron.log(item);
+
+    // this.setState({
+    //   users: afterDel,
+    // });
+  };
+
   handleNavigate = user => {
     const {navigation} = this.props;
 
@@ -77,15 +114,16 @@ class Main extends Component {
   };
 
   render() {
-    const {newUser, users, loading} = this.state;
+    const {newUser, users, loading, hasError} = this.state;
 
     return (
       <Container>
         <Form>
           <Input
+            hasError={hasError}
             autoCorrect={false}
             autoCapitalize="none"
-            placeholder="Adicionar usuário"
+            placeholder={hasError ? 'Usuário já existe' : 'Adicionar usuário'}
             value={newUser}
             onChangeText={text => this.setState({newUser: text})}
             returnKeyType="send"
@@ -106,7 +144,13 @@ class Main extends Component {
           keyExtractor={user => user.login}
           renderItem={({item}) => (
             <User>
-              <Avatar source={{uri: item.avatar}} />
+              <Top>
+                <Icon name="delete" size={30} color="rgba(32, 201, 151, 0.0)" />
+                <Avatar source={{uri: item.avatar}} />
+                <DeleteIcon onPres={() => this.handleDelete(item)}>
+                  <Icon name="delete" size={20} color="#ff3333" />
+                </DeleteIcon>
+              </Top>
               <Name>{item.name}</Name>
               <Bio>{item.bio}</Bio>
 

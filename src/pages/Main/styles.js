@@ -23,13 +23,15 @@ export const Input = styled.TextInput.attrs({
   background: #eee;
   border-radius: 4px;
   padding: 0 15px;
-  border: 1px solid #eee;
+  border: 1px solid ${props => (props.hasError ? '#ff3333' : '#eee')};
 `;
+
+export const TextError = styled.Text``;
 
 export const SubmitButton = styled(RectButton)`
   justify-content: center;
   align-items: center;
-  background: #f4511e;
+  background: rgba(32, 201, 151, 1);
   border-radius: 4px;
   margin-left: 10px;
   padding: 0 12px;
@@ -42,9 +44,25 @@ export const List = styled(FlatList).attrs({
   margin-top: 20px;
 `;
 
+export const DeleteIcon = styled(RectButton)`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
+export const Top = styled.View`
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const User = styled.View`
   align-items: center;
   margin: 0 20px 30px;
+  padding-top: 10px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: rgba(32, 201, 151, 0.1);
 `;
 
 export const Avatar = styled.Image`
@@ -76,7 +94,7 @@ export const ProfileButton = styled(RectButton)`
   margin-top: 10px;
   align-self: stretch;
   border-radius: 4px;
-  background: #f4511e;
+  background: rgba(32, 201, 151, 1);
   justify-content: center;
   align-items: center;
   height: 36px;

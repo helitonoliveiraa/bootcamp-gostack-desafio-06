@@ -9,7 +9,7 @@ import Routes from './routes';
 function App() {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#f4511e" />
+      <StatusBar barStyle="light-content" backgroundColor="#20c997" />
       <Routes />
     </>
   );

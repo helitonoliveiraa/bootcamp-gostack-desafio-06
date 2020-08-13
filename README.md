@@ -1,8 +1,9 @@
+<h2 align="center">Desafio 6: Primeiro projeto com React Native</h2>
+
 <h1>
   <img src="./.github/mobile.png" />
 </h1>
 
-<h2 align="center">Desafio 6: Primeiro projeto com React Native</h2>
 
 ## **Sobre o app**
 

@@ -9,6 +9,12 @@
 
 É uma app onde o usuário pode entrar com o nome de um perfil do Github e adicionar esses perfis em uma lista. O usuário também pode clicar em ver perfil e conferir os repositórios favoritos daquele perfil.
 
+## **Tecnologias utilizadas**
+
+- [React Native](https://reactnative.dev/)
+- [Styled Components](https://styled-components.com/)
+- [Axios](https://github.com/axios/axios)
+
 ## **Sobre o desafio**
 
 A proposta do desafio é adicionar navas funcionalidades ao app que foi desenvolvido na aulas.

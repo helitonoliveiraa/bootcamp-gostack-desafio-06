@@ -31,6 +31,10 @@ A proposta do desafio é adicionar navas funcionalidades ao app que foi desenvol
 
   quando o usuário clica em um dos repositórios favoritos, abre o Github do repositórios em uma Webview com todas as informações do repositório.
 
+* Armazenamento
+
+  Os dados são armazenados no próprio Storage do device.
+
 ### **Outras funcionalidades**
 
 Fui um pouco além do proposto no desafio, e incrementei alguns ajustes na aplicação.
